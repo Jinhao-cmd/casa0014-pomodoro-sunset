@@ -1,0 +1,7 @@
+# Keep WiFi and MQTT passwords out of GitHub (matches the file in every folder)
+arduino_secrets.h
+
+# Operating system clutter
+Thumbs.db
+desktop.ini
+.DS_Store
