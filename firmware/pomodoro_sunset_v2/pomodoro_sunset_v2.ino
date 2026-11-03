@@ -46,8 +46,8 @@ const int LONG_BREAK_MIN           = 15;
 const int POMODOROS_PER_LONG_BREAK = 4;
 
 // thresholds
-const float PHONE_ON_RATIO          = 0.40; // docked below 40% of ambient
-const float PHONE_OFF_RATIO         = 0.60; // hysteresis
+const float PHONE_ON_RATIO          = 0.75; // docked below 75% of ambient
+const float PHONE_OFF_RATIO         = 0.85; // hysteresis
 const int   PRESENCE_MAX_CM         = 100;  // cm
 const int   ENCODER_STEPS_PER_CLICK = 4;    // 2 or 4
 const int   ENCODER_DIRECTION       = 1;    
