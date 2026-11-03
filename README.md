@@ -115,7 +115,17 @@ TODO: add the state diagram (setup, focus, paused, sunset, break, dawn).
 > **Warning:** the HC-SR04 echo pin outputs 5 V, but the MKR1010 pins accept only 3.3 V.
 > Always use the voltage divider.
 
-<!-- ![Wiring from above](docs/images/YYYY-MM-DD_wiring-top.jpg) -->
+**First breadboard build (v1, 27 Oct).** Everything worked, but the wires were added one at
+a time and crossed over the board, which made faults hard to trace.
+
+![First breadboard build](docs/images/2026-10-27_wiring-v1-overview.jpg)
+
+### Modules
+
+| Rotary encoder | LDR phone dock | MKR WiFi 1010 |
+|---|---|---|
+| <img src="docs/images/modules/2026-10-27_module-encoder.jpg" width="240" alt="Rotary encoder on the breadboard"> | <img src="docs/images/wiring/2026-10-27_module-ldr.jpg" width="240" alt="LDR with its 10k resistor"> | <img src="docs/images/modules/2026-10-27_module-mkr1010.jpg" width="240" alt="Arduino MKR WiFi 1010 on the breadboard"> |
+| Sets the focus time; press to start, hold to reset | Detects the phone lying face down | Reads the sensors and sends frames over WiFi / MQTT |
 
 ## 5. Enclosure
 
@@ -190,6 +200,8 @@ TODO
 
 - Vespera, the Lumi web app and the workshop sketches by Duncan Wilson, UCL CASA
   Connected Environments Lab
-- TODO: acknowledge any other help or tools used, following the module's guidance
+- I used Claude (Anthropic) to help draft parts of the firmware and this README.
+  I tested all code on the hardware, chose the design, took all measurements and photos,
+  and edited the documentation in my own words.
 
 Released under the MIT License.
