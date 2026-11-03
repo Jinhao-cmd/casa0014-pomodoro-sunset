@@ -162,7 +162,7 @@ const unsigned long RESEND_EVERY_MS   = 30000;
 
 const int SUNSET_STOPS = 4;         // gold -> orange -> magenta -> deep blue
 const float SUNSET_COLOURS[SUNSET_STOPS][3] = {
-  {255, 150, 40}, {255, 70, 10}, {170, 30, 110}, {10, 20, 90}
+  {255, 100, 0}, {255, 70, 10}, {170, 30, 110}, {10, 20, 90}
 };
 
 // Network
@@ -467,7 +467,7 @@ void readLightDock(unsigned long now) {
 }
 
 unsigned long awayDelayMs() {
-  return DEMO_MODE ? 10000UL : 60000UL;
+  return DEMO_MODE ? 4000UL : 30000UL;
 }
 
 int median5(const int values[5]) {
@@ -786,7 +786,7 @@ void drawFrame(unsigned long now) {
       // Preview
       int preview = (int)round((float)focusMinutes / FOCUS_MAX_LIMIT * NUM_LEDS);
       for (int i = 0; i < NUM_LEDS; i++) {
-        if (i < preview) setPixel(i, 255, 150, 40);
+        if (i < preview) setPixel(i, 255, 100, 0);
         else             setPixel(i, 12, 7, 2);
       }
       break;
@@ -800,7 +800,7 @@ void drawFrame(unsigned long now) {
         } else if (i == lit - 1) {
           k = 0.3 + 0.7 * wave(now, 2000, 0);          // next
         }
-        setPixel(i, 255 * k, 150 * k, 40 * k);
+        setPixel(i, 255 * k, 100 * k, 0 * k);
       }
       break;
     }
@@ -808,7 +808,7 @@ void drawFrame(unsigned long now) {
     case PAUSED_AWAY: {
       float k = 0.1 + 0.2 * wave(now, 3000, 0);        
       for (int i = 0; i < lit; i++) {
-        setPixel(i, 255 * k, 150 * k, 40 * k);
+        setPixel(i, 255 * k, 100 * k, 0 * k);
       }
       break;
     }
