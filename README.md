@@ -199,7 +199,6 @@ the encoder firmly in the top of the enclosure.
 firmware/pomodoro_sunset/       v1: first prototype (five tabs), superseded by v2
 firmware/pomodoro_sunset_v2/
   pomodoro_sunset_v2.ino        current sketch
-  arduino_secrets.example.h     template for your WiFi / MQTT passwords
 docs/images/                    sketches, photos, screenshots and diagrams
 ```
 
@@ -225,7 +224,16 @@ The delay before pausing when you leave is set in `awayDelayMs()`.
 
 1. Wire the parts as in [Hardware](#4-hardware).
 2. Install the libraries listed in [Software](#6-software).
-3. Copy `arduino_secrets.example.h` to `arduino_secrets.h` and add your WiFi and MQTT details.
+3. In `firmware/pomodoro_sunset_v2/`, create a file called `arduino_secrets.h` with your
+   WiFi and MQTT details. It is listed in `.gitignore`, so it is never uploaded:
+
+   ```cpp
+   #define SECRET_SSID     "your-wifi-name"
+   #define SECRET_PASS     "your-wifi-password"
+   #define SECRET_MQTTUSER "your-mqtt-username"
+   #define SECRET_MQTTPASS "your-mqtt-password"
+   ```
+
 4. Set `LIGHT_ID` to your own luminaire number.
 5. Upload, keep the phone dock empty while the screen shows `Keep dock empty`.
 6. Select your luminaire number in the Lumi web app to see the output.
