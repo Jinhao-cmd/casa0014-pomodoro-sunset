@@ -223,8 +223,9 @@ The delay before pausing when you leave is set in `awayDelayMs()`.
 ## 7. Build your own
 
 1. Wire the parts as in [Hardware](#4-hardware).
-2. Install the libraries listed in [Software](#6-software).
-3. In `firmware/pomodoro_sunset_v2/`, create a file called `arduino_secrets.h` with your
+2. Clone or download this repository.
+3. Install the board package and libraries listed in [Software](#6-software).
+4. In `firmware/pomodoro_sunset_v2/`, create a file called `arduino_secrets.h` with your
    WiFi and MQTT details. It is listed in `.gitignore`, so it is never uploaded:
 
    ```cpp
@@ -234,9 +235,14 @@ The delay before pausing when you leave is set in `awayDelayMs()`.
    #define SECRET_MQTTPASS "your-mqtt-password"
    ```
 
-4. Set `LIGHT_ID` to your own luminaire number.
-5. Upload, keep the phone dock empty while the screen shows `Keep dock empty`.
-6. Select your luminaire number in the Lumi web app to see the output.
+5. Open `firmware/pomodoro_sunset_v2/pomodoro_sunset_v2.ino` and set `LIGHT_ID` to your own
+   luminaire number.
+6. Select **Arduino MKR WiFi 1010** and its port under Tools, then upload. If the upload
+   fails, double-press RESET and choose the new port.
+7. Keep the phone dock empty while the screen shows `Keep dock empty`.
+8. Open the Serial Monitor at 9600 baud and check that it prints
+   `Vespera topic: student/CASA0014/luminaire/<your id>` and `connected`.
+9. Select your luminaire number in the Lumi web app, turn the knob and press it to start.
 
 ## 8. Testing and calibration
 
@@ -342,6 +348,9 @@ lowering the green gave a deeper amber, (255, 100, 0), which reads clearly as a 
 
 - Vespera, the Lumi web app and the workshop sketches by Duncan Wilson, UCL CASA
   Connected Environments Lab
+  (<https://github.com/ucl-casa-ce/casa0014/tree/main/vespera>)
+- Libraries: [WiFiNINA](https://github.com/arduino-libraries/WiFiNINA) and
+  [PubSubClient](https://github.com/knolleary/pubsubclient)
 - I used Claude (Anthropic) to help draft parts of the firmware and this README.
   I tested all code on the hardware, chose the design, took all measurements and photos,
   and edited the documentation in my own words.
