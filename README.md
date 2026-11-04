@@ -11,7 +11,6 @@ it pauses when you leave your desk.
 
 - **Course:** CASA0014 Prototyping the Internet of Things, UCL CASA, 2026
 - **Vespera luminaire:** 29 (MQTT topic `student/CASA0014/luminaire/29`)
-- **Demo video:** TODO add link
 
 ## Contents
 
@@ -43,9 +42,17 @@ a Pomodoro timer, where each 25-minute focus session becomes a day that sets int
 - **A shared signal:** Vespera hangs in a shared lab, so the light also tells others that
   someone is focusing.
 
-TODO: add concept sketches and explain the ideas you considered before this one.
+### From tomato to desk clock
 
-<!-- ![Concept sketch](docs/images/YYYY-MM-DD_concept-sketch.jpg) -->
+My first idea was to shape the controller like a tomato, after the original Pomodoro kitchen
+timer. Without 3D printing, a rounded tomato was too hard to make from cardboard, so I based
+the form on a desk clock instead: the screen is tilted so the time is easy to read, and the
+flat top doubles as a platform for the phone.
+
+<img src="docs/images/sketches/2026-10-19_concept-sketch.jpg" width="480" alt="Concept sketch: a sloped desk console with the LCD on the slope, the LDR inside a phone area on top, two knobs, and the distance sensor on the front">
+
+The sketch places each sensor where it is used: the distance sensor on the front facing the
+user, the LCD on the slope, and the LDR in the phone area on top, next to the two knobs.
 
 ## 2. How it works
 
@@ -262,7 +269,8 @@ to (255, 100, 0). Add before / after photos.
 
 ## 12. Limitations and future work
 
-TODO
+- **Form:** with 3D printing, the enclosure could take the tomato shape of the original
+  Pomodoro timer, as first planned.
 
 ## 13. Acknowledgements
 
