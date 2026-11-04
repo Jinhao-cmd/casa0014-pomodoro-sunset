@@ -209,11 +209,22 @@ Main settings at the top of the sketch:
 
 ## 8. Testing and calibration
 
-TODO: add Serial Plotter screenshots.
+Each sensor was tested with the Serial Plotter, and the settings at the top of the sketch
+were chosen from these readings.
 
-- **LDR phone dock:** about 700 uncovered and 400 covered in the lab. The first threshold
-  (40% of room light) never triggered, so it was changed to 75% / 85% (with hysteresis).
-- **HC-SR04:** TODO record distances when seated and away.
+| Sensor | Measured | Setting chosen |
+|---|---|---|
+| LDR phone dock | About 680 uncovered, about 15 with the phone face down in the enclosure | Docked below 75% of room light, removed above 85% |
+| HC-SR04 | About 50-65 cm seated, up to 90 cm leaning back, about 120 cm after leaving | `PRESENCE_MAX_CM = 105` |
+| Away delay | 10 s felt too long in testing | 5 s in demo mode, XX s in normal mode |
+
+| LDR: placing the phone on the dock | HC-SR04: seated, leaning back, then leaving |
+|---|---|
+| <img src="docs/images/testing/2026-11-03_plotter-ldr.png" width="320" alt="Serial Plotter: light level falls from about 680 to about 15 when the phone is placed"> | <img src="docs/images/testing/2026-11-03_plotter-distance.png" width="320" alt="Serial Plotter: distance rises from about 50 cm seated to about 120 cm after leaving"> |
+
+After leaving, the sensor reads about 120 cm rather than nothing, because it picks up the
+wall or furniture behind the seat. The threshold therefore has to sit between the
+leaning-back reading and this background reading.
 
 ## 9. Iterations
 
@@ -229,7 +240,8 @@ TODO: add Serial Plotter screenshots.
 ### LDR thresholds
 
 The first threshold (docked below 40% of room light) never triggered: the LDR read about
-700 uncovered and only about 400 covered. It was changed to 75% (docked) and 85% (removed).
+700 uncovered and only about 400 covered. It was changed to 75% (docked) and 85% (removed),
+leaving a gap so the reading does not flicker between the two states.
 
 ### Wiring v1 → v2
 
@@ -240,18 +252,24 @@ The first threshold (docked below 40% of room light) never triggered: the LDR re
 
 ### LDR moved into the enclosure
 
-TODO: why the LDR was soldered to longer wires, and what changed when it was re-tested
-inside the case.
+On the breadboard, the LDR's legs were too short to reach the top of the enclosure, where
+the phone lies. I soldered it to longer wires so it could sit in a hole in the phone area.
+After moving it, the uncovered reading was about XX, so the thresholds
+[still worked / were re-tuned to XX]. The light level is calibrated at start-up, which
+helps when the enclosure casts a shadow on the sensor.
 
 ### Presence detection
 
-TODO: seated and away distances, and the new `PRESENCE_MAX_CM`. The away delay felt too
-long at 10 s, so it was shortened to 5 s in demo mode.
+Seated, the HC-SR04 read about XX cm, and it read over 300 cm (or no echo) after I left,
+so `PRESENCE_MAX_CM` was set to XX. In testing, waiting 10 s before pausing felt so long
+that the feature seemed broken, so the delay was shortened to 5 s in demo mode and XX s in
+normal mode, where a short movement such as turning round should not pause the session.
 
 ### Countdown colour
 
-TODO: the original gold (255, 150, 40) looked pale on Vespera's acrylic, so it was changed
-to (255, 100, 0). Add before / after photos.
+The original gold (255, 150, 40) looked pale on Vespera's acrylic. Removing the blue and
+lowering the green gave a deeper amber, (255, 100, 0), which reads clearly as a setting sun
+(see the Focus screenshot in [Light states](#light-states)).
 
 ## 10. Naming conventions
 
@@ -265,7 +283,6 @@ to (255, 100, 0). Add before / after photos.
 - The light level is calibrated at start-up: keep the phone dock empty until the screen changes.
 - The physical Vespera shows one luminaire at a time; check `"user"` in
   `student/CASA0014/luminaire/status`.
-- TODO: troubleshooting table.
 
 ## 12. Limitations and future work
 
