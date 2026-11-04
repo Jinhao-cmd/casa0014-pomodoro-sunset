@@ -12,6 +12,23 @@ it pauses when you leave your desk.
 - **Course:** CASA0014 Prototyping the Internet of Things, UCL CASA, 2026
 - **Vespera luminaire:** 29 (MQTT topic `student/CASA0014/luminaire/29`)
 
+## Development timeline
+
+This repository was created on DD Nov 2026, after the early prototyping. Earlier work was
+committed in the order it happened; the dates below are when it was actually done, taken
+from the dated photos in `docs/images/`.
+
+| Date | Stage |
+|---|---|
+| 19 Oct | Concept sketch |
+| 26 Oct | Hand-drawn wiring plan |
+| 27 Oct | First breadboard build (v1) |
+| DD Oct | Firmware rewritten as v2 after tutor feedback |
+| 30 Oct | Enclosure sketch and cardboard build; LDR soldered to extension wires |
+| 2 Nov | Wiring rebuilt (v2); electronics fitted into the enclosure |
+| 3 Nov | Light states recorded in Lumi; sensors tested with the Serial Plotter |
+| 4 Nov | Enclosure finished; system diagram |
+
 ## Contents
 
 1. [Concept and inspiration](#1-concept-and-inspiration)
@@ -67,7 +84,7 @@ user, the LCD on the slope, and the LDR in the phone area on top, next to the tw
 
 | Stage | Vespera | LCD |
 |---|---|---|
-| Focus | Warm gold; one pixel goes out roughly every 21 s | `Focus 18:42` |
+| Focus | Deep amber; one pixel goes out roughly every 21 s | `Focus 18:42` |
 | Last minute | The remaining "sun" pulses | Countdown |
 | End of focus | Sunset sweep, then an evening star appears | `Focus complete!` |
 | Break | Blue countdown under the stars | `Break 04:12` |
@@ -112,6 +129,7 @@ setup → focus → sunset → break → dawn → setup.
 | 1 kΩ resistors | 3 | Voltage divider for the HC-SR04 echo pin |
 | Waveshare LCD1602 RGB module | 1 | I2C |
 | Breadboard and jumper wires | | |
+| Cardboard, tape and a hex nut | | Enclosure; the nut holds the encoder |
 
 ### Wiring
 
@@ -178,11 +196,11 @@ the encoder firmly in the top of the enclosure.
 ## 6. Software
 
 ```
+firmware/pomodoro_sunset/       v1: first prototype (five tabs), superseded by v2
 firmware/pomodoro_sunset_v2/
-  pomodoro_sunset_v2.ino        the complete sketch
+  pomodoro_sunset_v2.ino        current sketch
   arduino_secrets.example.h     template for your WiFi / MQTT passwords
-tests/                          small sketches used to test each sensor
-docs/images/                    sketches, photos and screenshots
+docs/images/                    sketches, photos, screenshots and diagrams
 ```
 
 Libraries: WiFiNINA, Arduino_SpiNINA, PubSubClient (Nick O'Leary).
@@ -194,9 +212,14 @@ Main settings at the top of the sketch:
 |---|---|
 | `LIGHT_ID` | Vespera luminaire number |
 | `DEMO_MODE` | One minute lasts 4 seconds, for demos |
-| `REQUIRE_PHONE_DOCK`, `USE_PRESENCE` | Switch sensors on or off while testing |
-| `PHONE_ON_RATIO`, `PHONE_OFF_RATIO` | LDR thresholds |
+| `REQUIRE_PHONE_DOCK`, `USE_PRESENCE` | Switch the phone dock and presence detection on or off while testing |
+| `GENTLE_ANIMATIONS` | Breathing and pulsing effects on Vespera |
+| `PHONE_ON_RATIO`, `PHONE_OFF_RATIO` | LDR thresholds for placing and lifting the phone |
+| `PRESENCE_MAX_CM` | Distance below which someone counts as at the desk |
+| `ENCODER_STEPS_PER_CLICK`, `ENCODER_DIRECTION` | Match the sketch to the encoder |
 | `PIXEL_ORDER`, `STAR_PIXELS` | Map the animation to Vespera's physical layout |
+
+The delay before pausing when you leave is set in `awayDelayMs()`.
 
 ## 7. Build your own
 
@@ -216,7 +239,7 @@ were chosen from these readings.
 |---|---|---|
 | LDR phone dock | About 680 uncovered, about 15 with the phone face down in the enclosure | Docked below 75% of room light, removed above 85% |
 | HC-SR04 | About 50-65 cm seated, up to 90 cm leaning back, about 120 cm after leaving | `PRESENCE_MAX_CM = 105` |
-| Away delay | 10 s felt too long in testing | 5 s in demo mode, XX s in normal mode |
+| Away delay | 10 s felt too long in testing | 4 s in demo mode, 30 s in normal mode |
 
 | LDR: placing the phone on the dock | HC-SR04: seated, leaning back, then leaving |
 |---|---|
@@ -254,16 +277,19 @@ leaving a gap so the reading does not flicker between the two states.
 
 On the breadboard, the LDR's legs were too short to reach the top of the enclosure, where
 the phone lies. I soldered it to longer wires so it could sit in a hole in the phone area.
-After moving it, the uncovered reading was about XX, so the thresholds
-[still worked / were re-tuned to XX]. The light level is calibrated at start-up, which
-helps when the enclosure casts a shadow on the sensor.
+This also made the dock far more reliable: on the breadboard, covering the LDR only brought
+the reading down from about 700 to about 400, but in the enclosure the phone blocks almost
+all light and the reading drops from about 680 to about 15. The 75% / 85% thresholds now
+have a large margin.
 
 ### Presence detection
 
-Seated, the HC-SR04 read about XX cm, and it read over 300 cm (or no echo) after I left,
-so `PRESENCE_MAX_CM` was set to XX. In testing, waiting 10 s before pausing felt so long
-that the feature seemed broken, so the delay was shortened to 5 s in demo mode and XX s in
-normal mode, where a short movement such as turning round should not pause the session.
+Seated, the HC-SR04 read about 50-65 cm, rising to about 90 cm when leaning back. After
+leaving, it read about 120 cm, because it detects the wall or furniture behind the seat,
+so `PRESENCE_MAX_CM` was set to 105, between the two. In testing, waiting 10 s before
+pausing felt so long that the feature seemed broken, so the delay was shortened to 4 s in
+demo mode and 30 s in normal mode, where a short movement such as turning round should
+not pause the session.
 
 ### Countdown colour
 
@@ -274,7 +300,10 @@ lowering the green gave a deeper amber, (255, 100, 0), which reads clearly as a 
 ## 10. Naming conventions
 
 - **MQTT:** `student/CASA0014/luminaire/<id>`, as set by the course
-- **Images:** `YYYY-MM-DD_short-description.jpg`
+- **Images:** `YYYY-MM-DD_short-description` (`.jpg` for photos, `.png` for screenshots and
+  diagrams), grouped by topic in `docs/images/`: `sketches`, `diagrams`, `wiring`, `modules`,
+  `enclosure`, `states` and `testing`
+- **Firmware:** one folder per version, named after its sketch, as Arduino requires
 - **Commits:** start with a verb (`Add`, `Fix`, `Update`, `Tune`)
 
 ## 11. Operational notes
@@ -286,6 +315,18 @@ lowering the green gave a deeper amber, (255, 100, 0), which reads clearly as a 
 
 ## 12. Limitations and future work
 
+- **Light-based dock:** the LDR compares the phone to the room's light, so in a dark room it
+  cannot tell whether the phone is there. A small magnet and a Hall sensor would not depend
+  on lighting.
+- **Presence is distance, not a person:** the HC-SR04 also sees the wall behind the seat,
+  so the threshold has to be re-tuned for each desk, and soft clothing can absorb the echo.
+- **Shared display:** the physical Vespera shows one luminaire at a time, so the light only
+  works as a shared focus signal while it is showing luminaire 29.
+- **No memory:** the timer and the star count are lost if the board loses power.
+- **Pixel order:** the animation runs in Vespera's default pixel order; mapping it to the
+  physical layout of the fins would make the sunset sweep more natural.
+- **Privacy:** sensing presence and phone use in a shared lab raises questions about what
+  is recorded; this prototype keeps everything on the device and publishes only light colours.
 - **Form:** with 3D printing, the enclosure could take the tomato shape of the original
   Pomodoro timer, as first planned.
 
