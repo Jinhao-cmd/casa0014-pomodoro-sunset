@@ -14,7 +14,7 @@ it pauses when you leave your desk.
 
 ## Development timeline
 
-This repository was created on DD Nov 2026, after the early prototyping. Earlier work was
+This repository was created on 29 Oct 2026, after the early prototyping. Earlier work was
 committed in the order it happened; the dates below are when it was actually done, taken
 from the dated photos in `docs/images/`.
 
@@ -246,7 +246,7 @@ were chosen from these readings.
 | Sensor | Measured | Setting chosen |
 |---|---|---|
 | LDR phone dock | About 680 uncovered, about 15 with the phone face down in the enclosure | Docked below 75% of room light, removed above 85% |
-| HC-SR04 | About 50-65 cm seated, up to 90 cm leaning back, about 120 cm after leaving | `PRESENCE_MAX_CM = 105` |
+| HC-SR04 | About 50-65 cm seated, up to 90 cm leaning back, about 120 cm after leaving | `PRESENCE_MAX_CM = 100` |
 | Away delay | 10 s felt too long in testing | 4 s in demo mode, 30 s in normal mode |
 
 | LDR: placing the phone on the dock | HC-SR04: seated, leaning back, then leaving |
@@ -294,7 +294,7 @@ have a large margin.
 
 Seated, the HC-SR04 read about 50-65 cm, rising to about 90 cm when leaning back. After
 leaving, it read about 120 cm, because it detects the wall or furniture behind the seat,
-so `PRESENCE_MAX_CM` was set to 105, between the two. In testing, waiting 10 s before
+so `PRESENCE_MAX_CM` was set to 100, between the two. In testing, waiting 10 s before
 pausing felt so long that the feature seemed broken, so the delay was shortened to 4 s in
 demo mode and 30 s in normal mode, where a short movement such as turning round should
 not pause the session.
