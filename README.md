@@ -7,9 +7,7 @@ a sunset sweeps across the light when the session ends, and an evening star appe
 completed pomodoro. The timer only runs while your phone lies face down on the controller, and
 it pauses when you leave your desk.
 
-<!-- TODO: add a hero photo of the controller next to Vespera, then delete these comment marks
-![Pomodoro Sunset controller with Vespera](docs/images/hero.jpg)
--->
+<img src="docs/images/enclosure/YYYY-MM-DD_enclosure-finished.jpg" width="600" alt="Pomodoro Sunset controller">
 
 - **Course:** CASA0014 Prototyping the Internet of Things, UCL CASA, 2026
 - **Vespera luminaire:** 29 (MQTT topic `student/CASA0014/luminaire/29`)
@@ -133,9 +131,11 @@ TODO: add the state diagram (setup, focus, paused, sunset, break, dawn).
 | Encoder and potentiometer, wired for the enclosure | LDR soldered to extension wires |
 |---|---|
 | <img src="docs/images/wiring/2026-11-02_encoder-pot-wiring.jpg" width="220" alt="Encoder and potentiometer with jumper wires"> | <img src="docs/images/modules/2026-10-30_ldr-soldered.jpg" width="220" alt="LDR soldered to extension wires"> |
-| TODO: your note | TODO: your note |
 
-TODO: add close-ups of the HC-SR04 with its voltage divider and the LCD.
+| LCD1602 RGB and HC-SR04 |
+|---|
+| <img src="docs/images/modules/YYYY-MM-DD_module-lcd-hcsr04.jpg" width="300" alt="LCD1602 RGB module and HC-SR04 ultrasonic sensor"> |
+| The LCD shows the exact time and its backlight follows Vespera; the HC-SR04 faces the user and its echo line goes through a 1k + 2k divider |
 
 ## 5. Enclosure
 
@@ -145,14 +145,21 @@ the phone dock and knobs on the top, and the ultrasonic sensor facing the user.
 | Sketch (30 Oct) | Cut panel | Empty shell |
 |---|---|---|
 | <img src="docs/images/enclosure/2026-10-30_enclosure-sketch.jpg" width="220" alt="Enclosure sketch"> | <img src="docs/images/enclosure/2026-10-30_enclosure-panel-cut.jpg" width="220" alt="Cardboard panel with cut-outs for the screen and knobs"> | <img src="docs/images/enclosure/2026-10-30_enclosure-empty.jpg" width="220" alt="Empty cardboard enclosure"> |
-| TODO: what the sketch planned | TODO: how the openings were sized | TODO: how it was folded and joined |
+| Inspired by a desk clock: the screen is tilted so the time is easy to read, with a flat platform on top for the phone | Openings sized by measuring each part, then cut and trimmed until it fitted | The cardboard was partly cut through so it could bend at the folds; tabs were left for joining, and it was taped into shape |
 
 | Planning the layout (2 Nov) | Wired inside |
 |---|---|
 | <img src="docs/images/enclosure/2026-11-02_enclosure-components-layout.jpg" width="300" alt="Components laid out on the cardboard"> | <img src="docs/images/wiring/2026-11-02_enclosure-inside-wiring.jpg" width="300" alt="Electronics wired inside the enclosure"> |
-| TODO: how the parts were arranged | TODO: what was hard to fit |
+| HC-SR04 at the bottom facing the user, LCD on the slope, and the LDR, encoder and potentiometer on top | Everything fitted inside the enclosure |
 
-TODO: add photos of the finished enclosure (front, top, screen on).
+**Hardest part: the encoder.** Its knob is also a push button, so it needs firm support
+from inside, otherwise the cardboard bends when it is pressed. It was also difficult to fix
+it to the cardboard. I solved this with an internal support piece and a hex nut, which hold
+the encoder firmly in the top of the enclosure.
+
+**Finished controller**
+
+<img src="docs/images/enclosure/YYYY-MM-DD_enclosure-finished.jpg" width="480" alt="Finished cardboard controller with all parts fitted">
 
 ## 6. Software
 
