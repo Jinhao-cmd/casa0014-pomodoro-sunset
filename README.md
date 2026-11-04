@@ -7,7 +7,7 @@ a sunset sweeps across the light when the session ends, and an evening star appe
 completed pomodoro. The timer only runs while your phone lies face down on the controller, and
 it pauses when you leave your desk.
 
-<img src="docs/images/enclosure/YYYY-MM-DD_enclosure-finished.jpg" width="600" alt="Pomodoro Sunset controller">
+<img src="docs/images/enclosure/2026-11-04_enclosure-finished.jpg" width="600" alt="Pomodoro Sunset controller">
 
 - **Course:** CASA0014 Prototyping the Internet of Things, UCL CASA, 2026
 - **Vespera luminaire:** 29 (MQTT topic `student/CASA0014/luminaire/29`)
@@ -159,7 +159,7 @@ the encoder firmly in the top of the enclosure.
 
 **Finished controller**
 
-<img src="docs/images/enclosure/YYYY-MM-DD_enclosure-finished.jpg" width="480" alt="Finished cardboard controller with all parts fitted">
+<img src="docs/images/enclosure/2026-11-04_enclosure-finished.jpg" width="480" alt="Finished cardboard controller with all parts fitted">
 
 ## 6. Software
 
