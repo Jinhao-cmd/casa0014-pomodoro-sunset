@@ -68,13 +68,7 @@ TODO: add concept sketches and explain the ideas you considered before this one.
 
 ## 3. System design
 
-TODO: add a system diagram.
-
-```
-Encoder, potentiometer, LDR, HC-SR04 --> MKR WiFi 1010 --> WiFi --> MQTT broker --> Vespera / Lumi
-                                              |
-                                              +--> LCD1602 RGB (local display)
-```
+<img src="docs/images/diagrams/2026-11-04_system-diagram.png" width="700" alt="System diagram: sensors to MKR WiFi 1010, which drives the LCD and publishes over WiFi to the MQTT broker, which sends frames to Vespera and Lumi">
 
 - **Broker:** `mqtt.cetools.org`, port 1884
 - **Topic:** `student/CASA0014/luminaire/29` (the only topic this device publishes to)
@@ -82,7 +76,20 @@ Encoder, potentiometer, LDR, HC-SR04 --> MKR WiFi 1010 --> WiFi --> MQTT broker 
 - **Rate:** at most 5 frames per second, and only when the frame changes
 - **Timer:** runs locally on the board, so the countdown continues if the network drops
 
-TODO: add the state diagram (setup, focus, paused, sunset, break, dawn).
+### Light states
+
+One cycle as seen in the Lumi web app (luminaire 29). The states run
+setup → focus → sunset → break → dawn → setup.
+
+| 1. Setup | 2. Focus | 3. Sunset |
+|---|---|---|
+| <img src="docs/images/states/2026-11-03_state-1-setup.png" width="260" alt="Setup: six pixels lit"> | <img src="docs/images/states/2026-11-03_state-2-focus.png" width="260" alt="Focus: pixels going out one by one"> | <img src="docs/images/states/2026-11-03_state-3-sunset.png" width="260" alt="Sunset gradient sweeping across the pixels"> |
+| 5 minutes chosen: 5 / 60 × 72 = 6 pixels preview the time | Pixels go out one by one; the next to go out (56) breathes | A gradient from gold to deep blue sweeps across the light |
+
+| 4. Break | 5. Dawn |
+|---|---|
+| <img src="docs/images/states/2026-11-03_state-4-break.png" width="260" alt="Break: blue countdown with two white stars"> | <img src="docs/images/states/2026-11-03_state-5-dawn.png" width="260" alt="Dawn: the sunset gradient in reverse"> |
+| Blue countdown; the two white pixels (0 and 18) are stars for two completed pomodoros | The sunset in reverse, back to setup |
 
 ## 4. Hardware
 
