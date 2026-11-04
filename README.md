@@ -141,7 +141,7 @@ setup → focus → sunset → break → dawn → setup.
 
 | LCD1602 RGB and HC-SR04 |
 |---|
-| <img src="docs/images/modules/YYYY-MM-DD_module-lcd-hcsr04.jpg" width="300" alt="LCD1602 RGB module and HC-SR04 ultrasonic sensor"> |
+| <img src="docs/images/modules/2026-10-27_module-lcd-hcsr04.jpg" width="300" alt="LCD1602 RGB module and HC-SR04 ultrasonic sensor"> |
 | The LCD shows the exact time and its backlight follows Vespera; the HC-SR04 faces the user and its echo line goes through a 1k + 2k divider |
 
 ## 5. Enclosure
