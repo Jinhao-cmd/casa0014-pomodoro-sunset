@@ -115,24 +115,44 @@ TODO: add the state diagram (setup, focus, paused, sunset, break, dawn).
 > **Warning:** the HC-SR04 echo pin outputs 5 V, but the MKR1010 pins accept only 3.3 V.
 > Always use the voltage divider.
 
-**First breadboard build (v1, 27 Oct).** Everything worked, but the wires were added one at
-a time and crossed over the board, which made faults hard to trace.
+**Wiring plan (26 Oct)**, drawn before building:
 
-![First breadboard build](docs/images/2026-10-27_wiring-v1-overview.jpg)
+<img src="docs/images/wiring/2026-10-26_wiring-plan-hand-drawn.jpg" width="480" alt="Hand-drawn wiring plan">
+
+**Current wiring (v2, 2 Nov).** The earlier build is compared in [Iterations](#9-iterations).
+
+<img src="docs/images/wiring/2026-11-02_wiring-v2-overview.jpg" width="480" alt="Breadboard wiring v2">
 
 ### Modules
 
 | Rotary encoder | LDR phone dock | MKR WiFi 1010 |
 |---|---|---|
-| <img src="docs/images/modules/2026-10-27_module-encoder.jpg" width="240" alt="Rotary encoder on the breadboard"> | <img src="docs/images/wiring/2026-10-27_module-ldr.jpg" width="240" alt="LDR with its 10k resistor"> | <img src="docs/images/modules/2026-10-27_module-mkr1010.jpg" width="240" alt="Arduino MKR WiFi 1010 on the breadboard"> |
+| <img src="docs/images/modules/2026-10-27_module-encoder.jpg" width="220" alt="Rotary encoder on the breadboard"> | <img src="docs/images/modules/2026-10-27_module-ldr.jpg" width="220" alt="LDR with its 10k resistor"> | <img src="docs/images/modules/2026-10-27_module-mkr1010.jpg" width="220" alt="Arduino MKR WiFi 1010 on the breadboard"> |
 | Sets the focus time; press to start, hold to reset | Detects the phone lying face down | Reads the sensors and sends frames over WiFi / MQTT |
+
+| Encoder and potentiometer, wired for the enclosure | LDR soldered to extension wires |
+|---|---|
+| <img src="docs/images/wiring/2026-11-02_encoder-pot-wiring.jpg" width="220" alt="Encoder and potentiometer with jumper wires"> | <img src="docs/images/modules/2026-10-30_ldr-soldered.jpg" width="220" alt="LDR soldered to extension wires"> |
+| TODO: your note | TODO: your note |
+
+TODO: add close-ups of the HC-SR04 with its voltage divider and the LCD.
 
 ## 5. Enclosure
 
 A medium-fidelity cardboard enclosure: a sloped desk console with the screen on the slope,
 the phone dock and knobs on the top, and the ultrasonic sensor facing the user.
 
-TODO: add photos of the paper mock-up, the cardboard net and the finished enclosure.
+| Sketch (30 Oct) | Cut panel | Empty shell |
+|---|---|---|
+| <img src="docs/images/enclosure/2026-10-30_enclosure-sketch.jpg" width="220" alt="Enclosure sketch"> | <img src="docs/images/enclosure/2026-10-30_enclosure-panel-cut.jpg" width="220" alt="Cardboard panel with cut-outs for the screen and knobs"> | <img src="docs/images/enclosure/2026-10-30_enclosure-empty.jpg" width="220" alt="Empty cardboard enclosure"> |
+| TODO: what the sketch planned | TODO: how the openings were sized | TODO: how it was folded and joined |
+
+| Planning the layout (2 Nov) | Wired inside |
+|---|---|
+| <img src="docs/images/enclosure/2026-11-02_enclosure-components-layout.jpg" width="300" alt="Components laid out on the cardboard"> | <img src="docs/images/wiring/2026-11-02_enclosure-inside-wiring.jpg" width="300" alt="Electronics wired inside the enclosure"> |
+| TODO: how the parts were arranged | TODO: what was hard to fit |
+
+TODO: add photos of the finished enclosure (front, top, screen on).
 
 ## 6. Software
 
@@ -176,7 +196,41 @@ TODO: add Serial Plotter screenshots.
 
 ## 9. Iterations
 
-TODO: describe each version and why it changed, with photos.
+### Firmware v1 → v2
+
+- **v1** (`firmware/pomodoro_sunset/`): the first full prototype, split across five
+  Arduino tabs. As well as the Vespera frames, it published a JSON status topic with a
+  retained "offline" last-will message.
+- **Feedback:** on the shared broker, students may only publish to their own luminaire topic.
+- **v2** (`firmware/pomodoro_sunset_v2/`): the status topic and last-will message were
+  removed, and the tabs were merged into one file.
+
+### LDR thresholds
+
+The first threshold (docked below 40% of room light) never triggered: the LDR read about
+700 uncovered and only about 400 covered. It was changed to 75% (docked) and 85% (removed).
+
+### Wiring v1 → v2
+
+| v1 (27 Oct) | v2 (2 Nov) |
+|---|---|
+| <img src="docs/images/wiring/2026-10-27_wiring-v1-overview.jpg" width="300" alt="First breadboard build"> | <img src="docs/images/wiring/2026-11-02_wiring-v2-overview.jpg" width="300" alt="Rebuilt wiring"> |
+| Wires added one at a time, crossing over the MKR1010 | Rebuilt by zones: each group of wires leaves from its own side of the board |
+
+### LDR moved into the enclosure
+
+TODO: why the LDR was soldered to longer wires, and what changed when it was re-tested
+inside the case.
+
+### Presence detection
+
+TODO: seated and away distances, and the new `PRESENCE_MAX_CM`. The away delay felt too
+long at 10 s, so it was shortened to 5 s in demo mode.
+
+### Countdown colour
+
+TODO: the original gold (255, 150, 40) looked pale on Vespera's acrylic, so it was changed
+to (255, 100, 0). Add before / after photos.
 
 ## 10. Naming conventions
 
